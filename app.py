@@ -7,18 +7,20 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 
-# 1. Fungsi untuk Mengunggah Data
-def upload_data():
-    st.title("Upload Dataset")
-    st.markdown("Unggah file CSV yang berisi data kesehatan seperti dataset diabetes Pima.")
-    uploaded_file = st.file_uploader("Pilih file CSV", type="csv")
-
-    if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file)
-        st.write("Data berhasil diunggah!")
-        st.dataframe(df.head())
-        return df
-    return None
+# 1. Fungsi untuk Memuat Data Secara Otomatis dari GitHub
+def load_data():
+    st.title("Dataset Diabetes")
+    
+    # URL raw GitHub untuk file CSV
+    csv_url = "https://raw.githubusercontent.com/Adpt5/streamlit-app-diabetes/master/data/diabetes.csv"
+    
+    # Memuat data dari URL
+    df = pd.read_csv(csv_url)
+    
+    st.write("Data berhasil dimuat!")
+    st.dataframe(df.head())
+    
+    return df
 
 # 2. Fungsi untuk Exploratory Data Analysis (EDA)
 def eda(df):
@@ -98,8 +100,8 @@ def modeling(df):
 def main():
     st.title("Aplikasi Prediksi Diabetes")
     
-    # Upload Data
-    df = upload_data()
+    # Load Data secara otomatis
+    df = load_data()
     
     # EDA
     if df is not None:
