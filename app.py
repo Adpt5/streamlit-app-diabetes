@@ -96,20 +96,41 @@ def modeling(df):
         else:
             st.write("Prediksi: Terdiagnosis Diabetes")
 
-# 4. Main Function untuk Menjalankan Aplikasi
+# 4. Fungsi untuk About (Deskripsi Aplikasi)
+def about():
+    st.title("About")
+    st.markdown("""
+    **Aplikasi Prediksi Diabetes** ini bertujuan untuk memprediksi apakah seseorang terdiagnosis diabetes atau tidak berdasarkan beberapa parameter medis seperti usia, kadar glukosa, dan BMI.
+
+    Aplikasi ini menggunakan **algoritma Random Forest** untuk melatih model prediksi berdasarkan dataset Diabetes Pima Indian. Model ini akan memberikan prediksi apakah seseorang memiliki risiko diabetes berdasarkan parameter yang dimasukkan.
+
+    **Tentang Pembuat:**
+    Nama: **Adipati Sulaiman**
+    
+    Terima kasih telah menggunakan aplikasi ini!
+    """)
+
+# 5. Main Function untuk Menjalankan Aplikasi
 def main():
-    st.title("Aplikasi Prediksi Diabetes")
+    st.sidebar.title("Menu")
     
-    # Load Data secara otomatis
-    df = load_data()
+    # Sidebar Menu
+    menu = st.sidebar.radio("Pilih Menu", ("Home", "About"))
     
-    # EDA
-    if df is not None:
-        eda(df)
+    if menu == "Home":
+        # Load Data secara otomatis
+        df = load_data()
+        
+        # EDA
+        if df is not None:
+            eda(df)
+        
+        # Modeling dan Prediksi
+        if df is not None:
+            modeling(df)
     
-    # Modeling dan Prediksi
-    if df is not None:
-        modeling(df)
+    elif menu == "About":
+        about()
 
 if __name__ == "__main__":
     main()
